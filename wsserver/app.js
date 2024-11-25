@@ -17,6 +17,7 @@ const config = require('./config');
 // Elenco dei require per i router che gestiscono le diverse risorse del mio webservice
 const rUsers = require('./users');
 const rInit = require('./init');
+const rLogin = require('./login');
 // Creo l'applicazione express
 const app = express();
 
@@ -31,6 +32,8 @@ app.use(cors());
 // Pubblico il sito web di help contenuto nella cartella chiamata public
 app.use('', express.static('public'));
 app.use('/init', rInit);
+app.use('/users', rUsers);
+app.use('/login', rLogin);
 // Implemento il metodo per l'inizializzazione del database
 
 

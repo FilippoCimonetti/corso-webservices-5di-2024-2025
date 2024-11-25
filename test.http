@@ -12,6 +12,16 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:4444/init
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "cisco"
+}
+
+###
+
 GET http://localhost:4444/users
 
 ###

@@ -13,9 +13,10 @@ router.post('', async (request, response) => {
     let password = request.body.password;
 
     //2. Controlle se nella tabella users è presente un utente con questo username
-    const sqlString = 'SELECT username, password, ruolo WHERE username = ?;';
+    const sqlString = 'SELECT username, password, ruolo FROM users WHERE username = ?;';
 
     try {
+       
         const [dati] = await pool.execute(sqlString, username);
         if (!dati){
             return response.status(401).json({
