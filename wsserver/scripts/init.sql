@@ -20,6 +20,7 @@ CREATE TABLE users (
     mail VARCHAR(100),
     username VARCHAR(20) NOT NULL,
     password VARCHAR(200) NOT NULL
+    ruolo: VARCHAR(13)
 );
 
 CREATE TABLE logs (
