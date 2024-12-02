@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt  = require('jsonwebtoken');
 
 const pool = require('./db');
-const config = require('./require');
+const config = require('./config');
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('', async (request, response) => {
 
     try {
        
-        const [dati] = await pool.execute(sqlString, username);
+        const [dati] = await pool.execute(sqlString, [username]);
         if (!dati){
             return response.status(401).json({
                 messaggio: 'Username o password errati.'

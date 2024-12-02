@@ -18,9 +18,10 @@ CREATE TABLE users (
     telefono VARCHAR(20),
     cell VARCHAR(20),
     mail VARCHAR(100),
-    username VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL UNIQUE+
+    ,
     password VARCHAR(200) NOT NULL,
-    ruolo VARCHAR(13),
+    ruolo VARCHAR(13)
 );
 
 CREATE TABLE logs (

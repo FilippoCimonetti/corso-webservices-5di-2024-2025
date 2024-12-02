@@ -3,8 +3,9 @@ const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 const router = express.Router();
+const config = require('./config');
 
-router.post('/init', async (request, response) => {
+router.post('', async (request, response) => {
     // Funzione di callback mandata in esecuzione quando un client invia una richiesta per la URL
     // http://localhost:4444/init con metodo POST
     let secret = request.body.secret;

@@ -18,6 +18,7 @@ const config = require('./config');
 const rUsers = require('./users');
 const rInit = require('./init');
 const rLogin = require('./login');
+const parseJSON = require('./json-check');
 // Creo l'applicazione express
 const app = express();
 
@@ -29,6 +30,9 @@ app.use(express.urlencoded({extended: false}));
 // Una riga che consente ad applicazioni ospitate su altri domini di accedere al webservice
 app.use(cors());
 
+//Controllo che i dati ricevuti dal server siano scritti in formato JSON corretto
+app.use(parseJSON);
+
 // Pubblico il sito web di help contenuto nella cartella chiamata public
 app.use('', express.static('public'));
 app.use('/init', rInit);
@@ -38,8 +42,6 @@ app.use('/login', rLogin);
 
 
 // ... implemento metodi CRUD
-
-app.use('/users', rUsers);
 
 // Metto in ascolto la mia applicazione express sulla porta scelta per il webservice: 4444
 
