@@ -23,8 +23,10 @@ Content-Type: application/json
 ###
 
 GET http://localhost:4444/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzMzMTUyMDkwLCJleHAiOjE3MzMxNTU2OTB9.22pISaQdtTrqGMtLjc2TB5X7eOD_8u75eDNllJR_bck
-###
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicnVvbG8iOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNzMzNzUzODQzLCJleHAiOjE3MzM3NTc0NDN9.2ApzZUZ_lxmr4vfVFerN7cIp-1NBZAtURUsoYU1aZ3o
+
+# POST http://localhost:4444/users
+# Authorization: 
 GET http://localhost:4444/users/1
 
 ###

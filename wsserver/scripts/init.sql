@@ -21,7 +21,7 @@ CREATE TABLE users (
     username VARCHAR(20) NOT NULL UNIQUE+
     ,
     password VARCHAR(200) NOT NULL,
-    ruolo VARCHAR(13)
+    ruolo VARCHAR(13) NOT NULL
 );
 
 CREATE TABLE logs (

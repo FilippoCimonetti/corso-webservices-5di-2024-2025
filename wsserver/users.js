@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const config = require('./config'); 
 const pool = require('./db');
 const {adminAuth} = require('./auth');
+const { body, validationResult } = require('express-validator');
+const {getFields} = require('./utils');
 // Questo router gestirà tutte le richieste dai client che hanno come url
 // l'indirizzo di base: http://localhost:4444/users
 const router = express.Router();
@@ -30,6 +32,22 @@ router.get('', async (request, response) => {
             errore: error
         });
     }
+})
+
+router.post('', [
+    body('username').notEmpty().withMessage('Username non deve essere null'),
+    body('password').notEmpty().withMessage('password non deve essere null'),
+    body('ruolo').notEmpty().withMessage('ruolo non deve essere null')
+], async (request, response) => {
+    const errori = validationResult(request);
+    if (!errori.isEmpty()){
+        response.status(400).json({
+            errori: errori.array()
+        })
+    }
+
+    getFields(request.body, 'users');
+    return request.status(200).send('ok');
 })
 
 module.exports = router;
