@@ -34,6 +34,29 @@ router.get('', async (request, response) => {
     }
 })
 
+router.get('/:id', async (request, response) => {
+    try {
+        const id = request.params.id;
+        const dati = [id];
+
+        const SQLstring = 'SELECT * FROM users WHERE id=?';
+        // Il metodo execute restituisce un array composto da due valori, il primo sono i dati richiesti,
+        // il secondo un array contenente tutta la descrizione dei campi della tabella.
+        // Scrivendo [dati] fra parentesi quadre, stabiliamo che ci interessa solo il primo valore dell'array
+        // che ci arriva come risposta (i dati) e non la descrizione dei campi della tabella.
+        const [response] = await pool.execute(SQLstring, dati);
+        return response.status(200).send(response);
+    }
+    catch (error) {
+        // Con il metodo json(...) inviamo al server un oggetto javascript composto da messaggio ed errore ricevuto 
+        // da MYSQL formattato in JSON
+        return response.status(500).json({
+            messaggio: 'Errore interno del server MYSQL.',
+            errore: error
+        });
+    }
+})
+
 router.post('', [
     body('username').notEmpty().withMessage('Username non deve essere null'),
     body('password').notEmpty().withMessage('password non deve essere null'),
