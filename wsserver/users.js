@@ -79,7 +79,7 @@ router.put('/:id', async (request, response) => {
         const bodyCorretto = correctRequestData(request.body, 'users');
         const dati = getValues(bodyCorretto);
         dati.push(id);
-        const sqlString = 'UPDATE users SET ' + setUpdateFields(bodyCorretto) + 'WHERE id = ?';
+        const sqlString = 'UPDATE users SET ' + setUpdateFields(bodyCorretto) + ' WHERE id = ?';
         const result = await pool.execute(sqlString, dati);
         return request.status(200).send(result);
     }
