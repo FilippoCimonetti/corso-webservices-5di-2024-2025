@@ -110,4 +110,5 @@ router.delete('/:id', async (request, response) =>{
     }
 });
 
+//Costruire altre due tabelle e implementare metodo CRUD
 module.exports = router;
