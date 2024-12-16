@@ -1,6 +1,6 @@
 const config = require ('./config');
 
-function getFields(body, table){
+function correctRequestData(body, table){
     // const fields = Object.keys(body);
     // console.log(fields);
     // const corretti = fields.filter(field => config.tabelle[table].includes(fields));
@@ -17,4 +17,24 @@ function getFields(body, table){
     }, {})
 }
 
-module.exports = {getFields}
+function getColumns(dati){
+    return Object.keys(dati);
+}
+
+function getValues(dati){
+    return Object.values(dati);
+}
+
+function setInsertFields(){
+    // (nome, cognome, ...)
+    return '(' + getColumns(dati).join(', ') + ')';
+}
+
+function setInsertPlaceholders(dati){
+    return '(' + getColumns(dati).map(() => '?').join(', ') + ')';
+}
+
+function setUpdateFields(dati){
+    return getColumns(dati).map(field => field + '=?')                                      
+}
+module.exports = {correctRequestData, getColumns, getValues, setInsertFields, setInsertPlaceholders, setUpdateFields}

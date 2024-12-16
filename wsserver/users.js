@@ -6,7 +6,7 @@ const config = require('./config');
 const pool = require('./db');
 const {adminAuth} = require('./auth');
 const { body, validationResult } = require('express-validator');
-const {getFields} = require('./utils');
+const {correctRequestData, getColumns, getValues, setInsertFields, setInsertPlaceholders, setUpdateFields} = require('./utils');
 // Questo router gestirà tutte le richieste dai client che hanno come url
 // l'indirizzo di base: http://localhost:4444/users
 const router = express.Router();
@@ -46,8 +46,68 @@ router.post('', [
         })
     }
 
-    getFields(request.body, 'users');
-    return request.status(200).send('ok');
+try{
+    
+
+    //Correggo i dati che mi arrivano dal client
+    const bodyCorretto = correctRequestData(request.body, 'users');
+
+    //Ottengo un array con i dati da inserire nel database
+    const dati = getValues(bodyCorretto);
+
+    //Genero l'istruzione SQL di inserimento
+    const sqlString = 'INSERT INTO users ' + setInsertFields(bodyCorretto) + 'VALUES ' + setInsertPlaceholders(bodyCorretto) + ';';
+
+    const result = await pool.execute(sqlString, dati);
+    return request.status(200).send(result);
+
+} 
+catch (errore){
+    return response.status(500).json({
+        messaggio: 'Errore interno del server MYSQL.',
+        errore: error
+    });
+}
+    
 })
+
+router.put('/:id', async (request, response) => {
+    //Recupero il parametro id dalla URL
+    const id = request.params.id;
+    
+    try{
+        const bodyCorretto = correctRequestData(request.body, 'users');
+        const dati = getValues(bodyCorretto);
+        dati.push(id);
+        const sqlString = 'UPDATE users SET ' + setUpdateFields(bodyCorretto) + 'WHERE id = ?';
+        const result = await pool.execute(sqlString, dati);
+        return request.status(200).send(result);
+    }
+    catch (errore)
+    {
+        return response.status(500).json({
+            messaggio: 'Errore interno del server MYSQL.',
+            errore: errore
+        });
+    }
+});
+
+router.delete('/:id', async (request, response) =>{
+    const id = request.params.id;
+    const sqlString = 'DELETE FROM users WHERE id=?';
+    const dati = [id];
+  
+    try{
+        const result = await pool.execute(sqlString, dati);
+        return request.status(200).send(result);
+    }
+    catch (errore)
+    {
+    return response.status(500).json({
+        messaggio: 'Errore interno del server MYSQL.',
+        errore: errore
+    });
+    }
+});
 
 module.exports = router;
