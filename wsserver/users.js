@@ -44,8 +44,8 @@ router.get('/:id', async (request, response) => {
         // il secondo un array contenente tutta la descrizione dei campi della tabella.
         // Scrivendo [dati] fra parentesi quadre, stabiliamo che ci interessa solo il primo valore dell'array
         // che ci arriva come risposta (i dati) e non la descrizione dei campi della tabella.
-        const [response] = await pool.execute(SQLstring, dati);
-        return response.status(200).send(response);
+        const [result] = await pool.execute(SQLstring, dati);
+        return response.status(200).send(result);
     }
     catch (error) {
         // Con il metodo json(...) inviamo al server un oggetto javascript composto da messaggio ed errore ricevuto 
