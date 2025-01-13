@@ -40,15 +40,31 @@ router.post('', async (request, response) => {
 
         const tokenData = {
             username: username,
-            ruolo: utente.ruolo
+            ruolo: utente.ruolo,
+            tipo: 'dati'
+        }
+
+        const tokenRefresh = {
+            username: username,
+            ruolo: utente.ruolo,
+            tipo: 'refresh'
         }
 
         //Creo il token bearer
-        const token = jwt.sign(tokenData, config.secretKey, {expiresIn:config.durataTokenBearer});
+        const token1 = jwt.sign(tokenData, config.secretKey, {expiresIn:config.durataTokenBearer});
+        const token2 = jwt.sign(tokenRefresh, config.secretKey, {expiresIn:config.durataTokenBearer2});
+
         return response.status(200).json({
-            tipo: 'Bearer',
-            durata: config.durataTokenBearer,
-            token: token
+            dati: {
+                tipo: 'Bearer',
+                durata: config.durataTokenBearer,
+                token: token1
+            },
+            refresh:{
+                tipo: 'Bearer',
+                durata: config.durataTokenBearer,
+                token: token2
+            }
         })
         
     }

@@ -10,6 +10,7 @@ const config = {
     },
     secretKey: 'riccijoshualorenzo',
     durataTokenBearer: 3600,
+    durataTokenBearer2: 84600,
     saltOrRounds: 10,
     tabelle: {
         users: ['id', 'nome', 'cognome', 'indirizzo', 'cap', 'citta', 'provincia', 'telefono', 'cell', 'mail', 'username', 'password', 'ruolo']

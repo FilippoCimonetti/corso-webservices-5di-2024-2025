@@ -19,6 +19,7 @@ const rUsers = require('./users');
 const rInit = require('./init');
 const rLogin = require('./login');
 const parseJSON = require('./json-check');
+const rRefresh = require('./refresh');
 // Creo l'applicazione express
 const app = express();
 
@@ -38,6 +39,8 @@ app.use('', express.static('public'));
 app.use('/init', rInit);
 app.use('/users', rUsers);
 app.use('/login', rLogin);
+app.use('/refresh', rRefresh);
+
 // Implemento il metodo per l'inizializzazione del database
 
 
