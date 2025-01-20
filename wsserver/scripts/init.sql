@@ -34,7 +34,7 @@ CREATE TABLE recensioni(
     valutazione NUMERIC(1) NOT NULL,
     user VARCHAR(20),
     descrizione VARCHAR(100) NOT NULL,
-    prodotto VARCHAR(20) REFERENCES prodotti(barcode) 
+    prodotto VARCHAR(20) REFERENCES prodotti(barcode)
 );
 
 CREATE TABLE logs (

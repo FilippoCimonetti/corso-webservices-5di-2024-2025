@@ -62,7 +62,7 @@ router.post('', async (request, response) => {
             },
             refresh:{
                 tipo: 'Bearer',
-                durata: config.durataTokenBearer,
+                durata: config.durataTokenBearer2,
                 token: token2
             }
         })
