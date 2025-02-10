@@ -8,11 +8,17 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-
+const config = require('./config');
+const dbpassword = fs.readFileSync('/run/secrets/root_db_password');
+config.initDB.password = dbpassword;
+const initkey = fs.readFileSync('/run/secrets/init_key');
+const secretkey = fs.readFileSync('/run/secrets/secret_key');
+config.secretKey = secretkey;
+config.initkey = initkey;
 // Import gli oggetti/funzioni dichiarate in altri file
 // Per i nostri oggetti, funzioni, costanti, ecc. è necessario
 // speficicare il percorso per raggiungere il file
-const config = require('./config');
+
 
 // Elenco dei require per i router che gestiscono le diverse risorse del mio webservice
 const rUsers = require('./users');
@@ -20,6 +26,8 @@ const rInit = require('./init');
 const rLogin = require('./login');
 const parseJSON = require('./json-check');
 const rRefresh = require('./refresh');
+// Libreria che ci consente di interagire con il fyle system
+
 // Creo l'applicazione express
 const app = express();
 
